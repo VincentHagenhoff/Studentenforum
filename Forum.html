@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamisches Forum</title>
+    <style>
+        body {
+            background-color: #e6e6fa;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #483d8b;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #008080;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #006666;
+        }
+
+        .beitrag {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Studentenforum</h1>
+
+    <p>
+        Willkommen im dynamischen Studentenforum! Tauscht euch hier über eure Fragen und Probleme aus.
+    </p>
+
+    <form id="forumForm">
+        <label for="name">Dein Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="beitrag">Neuer Beitrag:</label>
+        <textarea id="beitrag" name="beitrag" required></textarea>
+        <br>
+        <input type="submit" value="Beitrag veröffentlichen">
+    </form>
+
+    <div id="beitragsContainer"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Überprüfen, ob es bereits Beiträge im Local Storage gibt
+            const gespeicherteBeiträge = JSON.parse(localStorage.getItem('beiträge')) || [];
+
+            // Beiträge anzeigen
+            zeigeBeiträge();
+
+            // Eventlistener für das Absenden des Formulars
+            document.getElementById('forumForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Namen und Beitrag hinzufügen
+                const name = document.getElementById('name').value;
+                const beitrag = document.getElementById('beitrag').value;
+                const neuerBeitrag = { name, beitrag };
+
+                // Neuen Beitrag hinzufügen
+                gespeicherteBeiträge.push(neuerBeitrag);
+
+                // Beiträge im Local Storage aktualisieren
+                localStorage.setItem('beiträge', JSON.stringify(gespeicherteBeiträge));
+
+                // Beiträge anzeigen
+                zeigeBeiträge();
+
+                // Formular leeren
+                document.getElementById('name').value = '';
+                document.getElementById('beitrag').value = '';
+            });
+
+            // Funktion zum Anzeigen der Beiträge
+            function zeigeBeiträge() {
+                const beitragsContainer = document.getElementById('beitragsContainer');
+                beitragsContainer.innerHTML = '';
+
+                gespeicherteBeiträge.forEach(function (beitrag) {
+                    const beitragDiv = document.createElement('div');
+                    beitragDiv.classList.add('beitrag');
+                    beitragDiv.innerHTML = `<strong>${beitrag.name}:</strong><p>${beitrag.beitrag}</p>`;
+                    beitragsContainer.appendChild(beitragDiv);
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
