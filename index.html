@@ -32,6 +32,23 @@
             text-align: center;
             color: white;
         }
+
+        .upload-section {
+            margin-top: 20px;
+        }
+
+        .upload-section form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        .upload-section input,
+        .upload-section textarea,
+        .upload-section button {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -51,10 +68,19 @@
     <section>
         <h2>Lernunterlagen</h2>
         <ul>
-            <li><a href="vorlesungsunterlagen.html" target="_blank">Vorlesungsunterlagen</a></li>
-            <li><a href="uebungen.html" target="_blank">Übungen</a></li>
-            <li><a href="loesungen.html" target="_blank">Lösungen</a></li>
+            <li><a href="vorlesungsunterlagen.html">Vorlesungsunterlagen</a></li>
+            <li><a href="uebungen.html">Übungsaufgaben</a></li>
+            <li><a href="loesungen.html">Lösungen</a></li>
         </ul>
+    </section>
+
+    <section class="upload-section">
+        <h2>Dateien hochladen</h2>
+        <form id="fileUploadForm">
+            <input type="file" id="fileInput" name="file" accept=".pdf, .docx, .txt" required>
+            <textarea id="commentInput" name="comment" placeholder="Kommentar"></textarea>
+            <button type="button" onclick="uploadFile()">Hochladen</button>
+        </form>
     </section>
 
     <section>
@@ -62,12 +88,20 @@
         <p>
             Tauscht euch in unseren Foren aus und helft euch gegenseitig bei Fragen und Problemen.
         </p>
-        <a href="forum.html" target="_blank">Zum Forum</a>
+        <a href="forum.html">Zum Forum</a>
     </section>
 
     <footer>
         © 2023 Studentenportal. Alle Rechte vorbehalten.
     </footer>
+
+    <script>
+        function uploadFile() {
+            // Hier kannst du JavaScript-Code hinzufügen, um die hochgeladenen Dateien und Kommentare zu verarbeiten.
+            // Du könntest AJAX verwenden, um die Daten an den Server zu senden und dort zu verarbeiten.
+            alert("Datei hochgeladen! Kommentar: " + document.getElementById('commentInput').value);
+        }
+    </script>
 
 </body>
 
